@@ -14,5 +14,10 @@ namespace Parking
             CarId = carId;
             Amount = amount;
         }
+
+        public override string ToString()
+        {
+            return $"{DateOfCreation} {CarId} {Amount}";
+        }
     }
 }

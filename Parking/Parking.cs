@@ -15,21 +15,17 @@ namespace Parking
 
         private List<Car> _carList = new List<Car>();
         private List<Transaction> _transactionList = new List<Transaction>();
-        public double Balance { get; private set; }
-
-        public static Parking GetInstance => Lazy.Value;
         
 
         public Parking()
         {
             _carBalanceChargingObservable.Subscribe(t => ChargeMoneyFromCars());
             _loggingTransactionObservable.Subscribe(t => LogLastMinutesTransactions());
-            Balance = 0;
         }
 
-        public static Parking GetParking() => Lazy.Value;
+        public static Parking Instance => Lazy.Value;
 
-        public double GetTotalRevenue() => Balance;
+        public decimal GetTotalRevenue() => _transactionList.Sum(tr => tr.Amount);
 
         public IReadOnlyCollection<Car> CarList => _carList.AsReadOnly();
 
@@ -46,7 +42,7 @@ namespace Parking
                 var lastMinuteTransactions = LastMinuteTransactions;
 
                 var lastMinuteSum = lastMinuteTransactions.Sum(x => x.Amount);
-                var lastMinuteStartTime = lastMinuteTransactions.Select(x => x.DateOfCreation).Min();
+                var lastMinuteStartTime = DateTime.Now.Subtract(TimeSpan.FromMinutes(1));
                 fileStream.WriteLine($"{lastMinuteStartTime} : {lastMinuteSum}");
             }
         }
