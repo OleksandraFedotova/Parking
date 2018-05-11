@@ -91,7 +91,7 @@ namespace Parking
 
             if (car != null)
             {
-                car.Balance += balance;
+                car.AddMoneyToBalance(balance);
             }
         }
 
