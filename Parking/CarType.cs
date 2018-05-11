@@ -1,4 +1,10 @@
 ﻿namespace Parking
 {
-    public enum CarType { Truck, Motorcycle, Bus};
+    public enum CarType
+    {
+        Passenger,
+        Truck,
+        Bus,
+        Motorcycle
+    };
 }
