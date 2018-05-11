@@ -43,5 +43,10 @@ namespace Parking
         {
             _balance -= chargingAmount;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {_balance} {Type}";
+        }
     }
 }
