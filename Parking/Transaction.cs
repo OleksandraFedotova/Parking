@@ -6,9 +6,9 @@ namespace Parking
     {
         public DateTime DateOfCreation { get; }
         public Guid CarId { get; }
-        public decimal Amount { get; }
+        public double Amount { get; }
 
-        public Transaction(DateTime time, Guid carId, decimal amount)
+        public Transaction(DateTime time, Guid carId, double amount)
         {
             DateOfCreation = time;
             CarId = carId;
