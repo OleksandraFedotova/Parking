@@ -25,14 +25,18 @@ namespace Parking
 
         public static Parking Instance => Lazy.Value;
 
-        public decimal GetTotalRevenue() => _transactionList.Sum(tr => tr.Amount);
+        public double GetTotalRevenue() => _transactionList.Sum(tr => tr.Amount);
 
         public IReadOnlyCollection<Car> CarList => _carList.AsReadOnly();
 
         private void ChargeMoneyFromCars()
         {
-            foreach(var car in CarList.ToList())
-                car.ChargeMoneyForParking(Settings.Prices[car.Type]);
+            foreach (var car in CarList.ToList())
+            {
+                var amountToChange = Settings.Prices[car.Type];
+                car.ChargeMoneyForParking(amountToChange);
+                _transactionList.Add(new Transaction(DateTime.UtcNow, car.Id, amountToChange));
+            }
         }
 
         private void LogLastMinutesTransactions()

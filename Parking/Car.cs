@@ -6,7 +6,9 @@ namespace Parking
     {
         private readonly double _fineForNegativeBalance;
 
-        private double _balance;
+        //First hour balance is free
+        private double _balance = 1200;
+        public double Balance => _balance;
         
         public Car(double balance, CarType type)
         {
